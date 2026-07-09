@@ -41,7 +41,9 @@ export default defineConfig({
   },
   root: path.resolve(import.meta.dirname),
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    outDir: isReplit
+      ? path.resolve(import.meta.dirname, "dist/public")
+      : path.resolve(import.meta.dirname, "../../public"),
     emptyOutDir: true,
   },
   server: {
