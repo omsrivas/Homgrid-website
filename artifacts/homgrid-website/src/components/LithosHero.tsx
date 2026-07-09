@@ -111,6 +111,23 @@ export default function LithosHero() {
               onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = 'rgba(255,255,255,0.70)'; }}
             >{l}</a>
           ))}
+          <a
+            href="/ai-floor-planner"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: '5px',
+              color: '#C8A96E', fontSize: '10.5px', letterSpacing: '0.13em',
+              textTransform: 'uppercase', textDecoration: 'none',
+              fontFamily: "'Cormorant Garamond', serif",
+              background: 'rgba(200,169,110,0.12)',
+              border: '1px solid rgba(200,169,110,0.35)',
+              padding: '4px 10px', borderRadius: '3px',
+              transition: 'background 0.2s',
+            }}
+            onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(200,169,110,0.24)'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(200,169,110,0.12)'; }}
+          >
+            ✦ AI
+          </a>
         </div>
 
         {/* Right — Contact Us */}

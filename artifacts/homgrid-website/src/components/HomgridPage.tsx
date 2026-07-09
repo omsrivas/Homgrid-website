@@ -168,6 +168,233 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// AI FEATURE SECTION
+// ═══════════════════════════════════════════════════════════════════════════════
+function AIFeatureSection() {
+  return (
+    <section
+      className="relative overflow-hidden"
+      style={{ background: G.bg, padding: '120px 0' }}
+    >
+      <WineGlow position="center" intensity={0.8} />
+      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
+        <Reveal>
+          <div
+            className="relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, rgba(26,18,8,0.96) 0%, rgba(40,28,12,0.94) 100%)`,
+              border: `1px solid ${G.wineBorder}`,
+              borderRadius: '24px',
+              padding: 'clamp(40px, 6vw, 80px)',
+              boxShadow: '0 20px 80px rgba(26,18,8,0.24)',
+            }}
+          >
+            {/* Subtle grid pattern overlay */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                backgroundImage: `linear-gradient(rgba(191,154,72,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(191,154,72,0.04) 1px, transparent 1px)`,
+                backgroundSize: '48px 48px',
+                borderRadius: '24px',
+              }}
+            />
+            {/* Gold glow top-right */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                top: '-80px', right: '-80px',
+                width: '320px', height: '320px',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(191,154,72,0.18) 0%, transparent 70%)',
+              }}
+            />
+
+            <div className="relative flex flex-col lg:flex-row gap-14 lg:items-center">
+              {/* Left — copy */}
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-8">
+                  <div style={{ width: '20px', height: '1px', background: G.wine }} />
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '10px', fontWeight: 600, letterSpacing: '0.28em', textTransform: 'uppercase', color: G.wine }}>
+                    Exclusive Studio Tool
+                  </span>
+                </div>
+
+                <h2
+                  style={{
+                    fontFamily: 'Playfair Display, serif',
+                    fontSize: 'clamp(34px, 4.2vw, 62px)',
+                    fontWeight: 700,
+                    color: '#FAF8F5',
+                    lineHeight: 1.08,
+                    letterSpacing: '-0.022em',
+                    marginBottom: '24px',
+                  }}
+                >
+                  AI Floor Planner
+                </h2>
+
+                <p
+                  style={{
+                    fontFamily: 'Cormorant Garamond, serif',
+                    fontSize: 'clamp(16px, 1.4vw, 20px)',
+                    lineHeight: 1.8,
+                    color: 'rgba(237,232,224,0.72)',
+                    maxWidth: '480px',
+                    marginBottom: '36px',
+                  }}
+                >
+                  Generate photorealistic, Vastu-compliant floor plans in seconds. Enter your plot size, select your style, and let our AI do the rest — complete with room legends, area statements, and a compass rose.
+                </p>
+
+                {/* Feature pills */}
+                <div className="flex flex-wrap gap-3 mb-10">
+                  {[
+                    'Plot Size Input',
+                    'Floor Selection',
+                    'Room Requirements',
+                    'Vastu Options',
+                    'Instant Results',
+                    'Download PDF',
+                  ].map(feat => (
+                    <span
+                      key={feat}
+                      style={{
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '10px',
+                        fontWeight: 500,
+                        letterSpacing: '0.10em',
+                        textTransform: 'uppercase',
+                        color: G.wine,
+                        background: 'rgba(191,154,72,0.10)',
+                        border: `1px solid rgba(191,154,72,0.30)`,
+                        padding: '5px 12px',
+                        borderRadius: '6px',
+                      }}
+                    >
+                      {feat}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href="/ai-floor-planner"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '12px',
+                    padding: '16px 36px',
+                    background: `linear-gradient(135deg, ${G.wine} 0%, ${G.gold} 100%)`,
+                    border: 'none',
+                    borderRadius: '10px',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '11px',
+                    fontWeight: 600,
+                    letterSpacing: '0.20em',
+                    textTransform: 'uppercase',
+                    color: '#FAF8F5',
+                    textDecoration: 'none',
+                    boxShadow: '0 6px 28px rgba(191,154,72,0.38)',
+                    transition: 'transform 0.2s, box-shadow 0.2s',
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(-2px)';
+                    (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 10px 36px rgba(191,154,72,0.50)';
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLAnchorElement).style.transform = 'translateY(0)';
+                    (e.currentTarget as HTMLAnchorElement).style.boxShadow = '0 6px 28px rgba(191,154,72,0.38)';
+                  }}
+                >
+                  ✦ Try AI Floor Planner
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+
+              {/* Right — mock floor plan preview */}
+              <div
+                className="flex-shrink-0 relative"
+                style={{ width: 'clamp(260px, 36%, 420px)' }}
+              >
+                {/* Blueprint card */}
+                <div
+                  style={{
+                    background: '#f5f0e8',
+                    borderRadius: '14px',
+                    padding: '24px',
+                    border: '1px solid rgba(200,168,130,0.50)',
+                    boxShadow: '0 8px 40px rgba(0,0,0,0.30)',
+                    fontFamily: 'Georgia, serif',
+                  }}
+                >
+                  <div style={{ borderBottom: '2px solid #5a3e28', paddingBottom: '10px', marginBottom: '14px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '0.16em', color: '#2a1a0a', textTransform: 'uppercase', textDecoration: 'underline', marginBottom: '3px' }}>Ground Floor Plan</div>
+                    <div style={{ fontSize: '9px', fontWeight: 600, letterSpacing: '0.12em', color: '#5a3e28', textTransform: 'uppercase' }}>Modern Villa · Plot 40×60 Ft</div>
+                  </div>
+                  {/* Floor plan schematic SVG */}
+                  <svg viewBox="0 0 200 160" style={{ width: '100%', height: 'auto', display: 'block' }}>
+                    {/* Outer boundary */}
+                    <rect x="10" y="10" width="180" height="140" fill="#e8e0d0" stroke="#2a1a0a" strokeWidth="2.5" />
+                    {/* Rooms */}
+                    <rect x="10" y="10" width="80" height="55" fill="#f0ebe0" stroke="#5a3e28" strokeWidth="1" />
+                    <rect x="90" y="10" width="100" height="55" fill="#ede5d5" stroke="#5a3e28" strokeWidth="1" />
+                    <rect x="10" y="65" width="50" height="50" fill="#f0ebe0" stroke="#5a3e28" strokeWidth="1" />
+                    <rect x="60" y="65" width="80" height="50" fill="#ede5d5" stroke="#5a3e28" strokeWidth="1" />
+                    <rect x="140" y="65" width="50" height="50" fill="#f0ebe0" stroke="#5a3e28" strokeWidth="1" />
+                    <rect x="10" y="115" width="180" height="35" fill="#e0d8c8" stroke="#5a3e28" strokeWidth="1" />
+                    {/* Room labels */}
+                    <text x="50" y="40" textAnchor="middle" fontSize="7" fill="#5a3e28" fontFamily="Georgia, serif">Living</text>
+                    <text x="140" y="40" textAnchor="middle" fontSize="7" fill="#5a3e28" fontFamily="Georgia, serif">Master Bed</text>
+                    <text x="35" y="93" textAnchor="middle" fontSize="6" fill="#5a3e28" fontFamily="Georgia, serif">Kitchen</text>
+                    <text x="100" y="93" textAnchor="middle" fontSize="7" fill="#5a3e28" fontFamily="Georgia, serif">Dining</text>
+                    <text x="165" y="93" textAnchor="middle" fontSize="6" fill="#5a3e28" fontFamily="Georgia, serif">Bedroom</text>
+                    <text x="100" y="135" textAnchor="middle" fontSize="7" fill="#5a3e28" fontFamily="Georgia, serif">Car Parking · Garden</text>
+                    {/* Door arcs */}
+                    <path d="M 90 10 Q 90 25 105 25" fill="none" stroke="#5a3e28" strokeWidth="0.8" />
+                    <path d="M 10 65 Q 25 65 25 80" fill="none" stroke="#5a3e28" strokeWidth="0.8" />
+                    {/* Staircase */}
+                    <rect x="62" y="67" width="18" height="20" fill="none" stroke="#8b6914" strokeWidth="0.8" />
+                    <line x1="65" y1="70" x2="77" y2="70" stroke="#8b6914" strokeWidth="0.5" />
+                    <line x1="65" y1="74" x2="77" y2="74" stroke="#8b6914" strokeWidth="0.5" />
+                    <line x1="65" y1="78" x2="77" y2="78" stroke="#8b6914" strokeWidth="0.5" />
+                    <line x1="65" y1="82" x2="77" y2="82" stroke="#8b6914" strokeWidth="0.5" />
+                    {/* North indicator */}
+                    <text x="188" y="22" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#5a3e28" fontFamily="Georgia, serif">N</text>
+                    <line x1="188" y1="24" x2="188" y2="36" stroke="#5a3e28" strokeWidth="1" />
+                    <polygon points="188,24 185,32 188,30 191,32" fill="#5a3e28" />
+                  </svg>
+                  {/* Area statement */}
+                  <div style={{ borderTop: '1px solid #c8a882', marginTop: '12px', paddingTop: '10px', display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: '#5a3e28', fontFamily: 'monospace' }}>
+                    <span>Built-up: <strong>2100 SQ.FT.</strong></span>
+                    <span>Carpet: <strong>1725 SQ.FT.</strong></span>
+                  </div>
+                </div>
+
+                {/* AI badge */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '-14px', right: '-14px',
+                    background: `linear-gradient(135deg, ${G.wine}, ${G.gold})`,
+                    borderRadius: '50%',
+                    width: '56px', height: '56px',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    flexDirection: 'column',
+                    boxShadow: '0 4px 18px rgba(191,154,72,0.50)',
+                  }}
+                >
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '8px', fontWeight: 700, color: '#FAF8F5', letterSpacing: '0.06em', lineHeight: 1 }}>AI</span>
+                  <span style={{ fontFamily: 'Inter, sans-serif', fontSize: '6px', color: 'rgba(250,248,245,0.75)', letterSpacing: '0.08em', textTransform: 'uppercase', lineHeight: 1.2 }}>Generated</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 01 — MARQUEE STRIP
 // ═══════════════════════════════════════════════════════════════════════════════
 function MarqueeStrip() {
@@ -1617,6 +1844,8 @@ export default function HomgridPage() {
       <TornEdge above={G.bg} below={G.sec} />
       <ServicesSection />
       <TornEdge above={G.sec} below={G.bg} flip />
+      <AIFeatureSection />
+      <TornEdge above={G.bg} below={G.sec} />
       <ProjectsSection />
       <TornEdge above={G.bg} below={G.sec} />
       <ProcessSection />
