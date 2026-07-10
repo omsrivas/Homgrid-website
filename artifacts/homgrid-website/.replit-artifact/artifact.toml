@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Homgrid Architects"
+version = "1.0.0"
+id = "artifacts/homgrid-website"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25871
+
+[services.development]
+run = "pnpm --filter @workspace/homgrid-website run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/homgrid-website", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/homgrid-website/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25871"
+BASE_PATH = "/"
