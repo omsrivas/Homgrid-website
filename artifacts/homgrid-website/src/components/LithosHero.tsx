@@ -14,17 +14,11 @@ function buildPatchyMask(cx: number, cy: number, r: number): string {
     ` rgba(0,0,0,${opacity}) 0%, rgba(0,0,0,${opacity}) 25%, rgba(0,0,0,0) 75%)`;
 
   return [
-    // Central mass — slightly squashed, nudged left
     e(-0.08,  0.05, 1.15, 0.90, 1.00),
-    // Upper-left lobe
     e(-0.32, -0.30, 0.65, 0.58, 0.90),
-    // Right lobe
     e( 0.36, -0.10, 0.60, 0.70, 0.85),
-    // Lower-left smear
     e(-0.24,  0.38, 0.55, 0.45, 0.80),
-    // Small top accent
     e( 0.16, -0.42, 0.36, 0.32, 0.70),
-    // Bottom-right wisp
     e( 0.30,  0.34, 0.42, 0.38, 0.65),
   ].join(', ');
 }
@@ -49,11 +43,148 @@ function RevealLayer({ cursorX, cursorY }: { cursorX: number; cursorY: number })
   );
 }
 
+// ── Mobile full-screen menu ───────────────────────────────────────────────────
+function MobileMenu({ onClose }: { onClose: () => void }) {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  return (
+    <div
+      className="fixed inset-0 z-[300] flex flex-col"
+      style={{ background: 'rgba(5,4,3,0.97)', backdropFilter: 'blur(24px)' }}
+    >
+      {/* Top bar */}
+      <div className="flex items-center justify-between px-5 py-5">
+        <div style={{ lineHeight: 1 }}>
+          <span className="font-playfair italic" style={{ color: '#fff', fontSize: '22px', display: 'block', lineHeight: 1.1 }}>Homgrid</span>
+          <span style={{ fontSize: '7.5px', letterSpacing: '0.30em', color: 'rgba(200,169,110,0.85)', textTransform: 'uppercase', fontFamily: "'Cormorant Garamond', serif" }}>Architects</span>
+        </div>
+        <button
+          onClick={onClose}
+          aria-label="Close menu"
+          style={{
+            background: 'none',
+            border: '1px solid rgba(200,169,110,0.30)',
+            color: 'rgba(255,255,255,0.80)',
+            borderRadius: '8px',
+            width: '40px',
+            height: '40px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            fontSize: '18px',
+            lineHeight: 1,
+          }}
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Gold rule */}
+      <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(200,169,110,0.40), transparent)', margin: '0 20px' }} />
+
+      {/* Nav links */}
+      <nav className="flex flex-col items-center justify-center flex-1 gap-2 px-6">
+        {[
+          { label: 'Projects',  href: '#projects' },
+          { label: 'Services',  href: '#services' },
+          { label: 'About',     href: '#about' },
+          { label: 'Process',   href: '#process' },
+          { label: 'Contact',   href: '#contact' },
+        ].map(({ label, href }) => (
+          <a
+            key={label}
+            href={href}
+            onClick={onClose}
+            style={{
+              color: 'rgba(245,240,232,0.90)',
+              fontFamily: "'Playfair Display', serif",
+              fontSize: '32px',
+              fontWeight: 600,
+              textDecoration: 'none',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.4,
+              width: '100%',
+              textAlign: 'center',
+              padding: '6px 0',
+              borderBottom: '1px solid rgba(200,169,110,0.08)',
+              transition: 'color 0.2s',
+            }}
+          >
+            {label}
+          </a>
+        ))}
+
+        {/* AI Floor Planner — special link */}
+        <a
+          href="/ai-floor-planner"
+          onClick={onClose}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            color: '#C8A96E',
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: '20px',
+            letterSpacing: '0.06em',
+            textDecoration: 'none',
+            border: '1px solid rgba(200,169,110,0.40)',
+            padding: '12px 28px',
+            borderRadius: '4px',
+            marginTop: '16px',
+            background: 'rgba(200,169,110,0.08)',
+          }}
+        >
+          ✦ AI Floor Planner
+        </a>
+      </nav>
+
+      {/* Bottom contact strip */}
+      <div
+        className="text-center pb-10 pt-4"
+        style={{ borderTop: '1px solid rgba(200,169,110,0.12)', margin: '0 20px' }}
+      >
+        <a
+          href="tel:+917830355661"
+          style={{
+            color: 'rgba(200,169,110,0.70)',
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: '16px',
+            letterSpacing: '0.08em',
+            textDecoration: 'none',
+            display: 'block',
+            marginTop: '16px',
+          }}
+        >
+          +91 78303 55661
+        </a>
+        <span
+          style={{
+            color: 'rgba(245,240,232,0.25)',
+            fontFamily: "'Cormorant Garamond', serif",
+            fontSize: '11px',
+            letterSpacing: '0.22em',
+            textTransform: 'uppercase',
+            display: 'block',
+            marginTop: '6px',
+          }}
+        >
+          Vrindavan · Noida
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export default function LithosHero() {
   const mouseRef = useRef({ x: -999, y: -999 });
   const smoothRef = useRef({ x: -999, y: -999 });
   const rafRef = useRef<number>(0);
   const [cursorPos, setCursorPos] = useState({ x: -999, y: -999 });
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -93,6 +224,9 @@ export default function LithosHero() {
 
   return (
     <div className="lithos-root" style={{ background: '#FAF8F5', height: '100dvh', overflow: 'hidden' }}>
+      {/* Mobile full-screen menu */}
+      {menuOpen && <MobileMenu onClose={() => setMenuOpen(false)} />}
+
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-[100] flex items-center justify-between px-5 py-4 sm:px-8">
         {/* Logo + wordmark */}
@@ -130,9 +264,10 @@ export default function LithosHero() {
           </a>
         </div>
 
-        {/* Right — Contact Us */}
+        {/* Right — Contact Us (desktop) / Hamburger (mobile) */}
         <a
           href="#contact"
+          className="hidden sm:inline-flex"
           style={{
             fontFamily: "'Cormorant Garamond', serif",
             fontSize: '11px',
@@ -153,6 +288,26 @@ export default function LithosHero() {
         >
           Contact Us
         </a>
+
+        {/* Hamburger button — mobile only */}
+        <button
+          className="sm:hidden flex flex-col justify-center items-center gap-[5px]"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Open menu"
+          style={{
+            background: 'rgba(200,169,110,0.12)',
+            border: '1px solid rgba(200,169,110,0.35)',
+            borderRadius: '6px',
+            width: '40px',
+            height: '40px',
+            cursor: 'pointer',
+            padding: '8px',
+          }}
+        >
+          <span style={{ display: 'block', width: '18px', height: '1.5px', background: '#C8A96E', borderRadius: '1px' }} />
+          <span style={{ display: 'block', width: '14px', height: '1.5px', background: '#C8A96E', borderRadius: '1px', marginLeft: '-4px' }} />
+          <span style={{ display: 'block', width: '18px', height: '1.5px', background: '#C8A96E', borderRadius: '1px' }} />
+        </button>
       </nav>
 
       {/* Hero section */}
@@ -171,7 +326,7 @@ export default function LithosHero() {
         {/* Dark gradient overlay — keeps nav text readable */}
         <div
           className="absolute inset-0 pointer-events-none z-40"
-          style={{ background: 'linear-gradient(180deg, rgba(10,9,7,0.28) 0%, rgba(10,9,7,0.04) 35%, rgba(10,9,7,0.0) 100%)' }}
+          style={{ background: 'linear-gradient(180deg, rgba(10,9,7,0.32) 0%, rgba(10,9,7,0.06) 40%, rgba(10,9,7,0.0) 100%)' }}
         />
 
         {/* Portrait-specific bottom darkening overlay */}
@@ -179,12 +334,12 @@ export default function LithosHero() {
 
         {/* Hero text panel */}
         <div className="hero-text-panel">
-          <div style={{ paddingLeft: 'clamp(22px, 6vw, 88px)', paddingRight: 'clamp(20px, 4vw, 48px)', paddingTop: 'clamp(86px, 13vh, 128px)', maxWidth: '100%' }}>
+          <div style={{ paddingLeft: 'clamp(20px, 6vw, 88px)', paddingRight: 'clamp(20px, 5vw, 48px)', paddingTop: 'clamp(80px, 13vh, 128px)', maxWidth: '100%' }}>
 
             {/* Label with gold rule */}
-            <div className="hero-text-anim" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '18px', animationDelay: '0.08s' }}>
-              <div style={{ width: '32px', height: '1px', background: '#C8A96E', flexShrink: 0 }} />
-              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(9px, 0.70vw, 11px)', fontWeight: 400, letterSpacing: '0.28em', textTransform: 'uppercase', color: '#C8A96E', margin: 0 }}>
+            <div className="hero-text-anim" style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px', animationDelay: '0.08s' }}>
+              <div style={{ width: '28px', height: '1px', background: '#C8A96E', flexShrink: 0 }} />
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(10px, 0.70vw, 11px)', fontWeight: 400, letterSpacing: '0.24em', textTransform: 'uppercase', color: '#C8A96E', margin: 0 }}>
                 Designing Timeless Spaces
               </p>
             </div>
@@ -196,7 +351,7 @@ export default function LithosHero() {
                 fontWeight: 900,
                 lineHeight: 1.0,
                 margin: 0,
-                marginBottom: '22px',
+                marginBottom: '18px',
                 animationDelay: '0.20s',
               }}
             >
@@ -210,15 +365,15 @@ export default function LithosHero() {
 
             {/* Description */}
             <p
-              className="hero-text-anim"
+              className="hero-text-anim hero-desc"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: 'clamp(13px, 1.02vw, 17px)',
+                fontSize: 'clamp(14px, 1.02vw, 17px)',
                 fontWeight: 300,
                 lineHeight: 1.72,
                 color: 'rgba(240,228,205,0.95)',
                 margin: 0,
-                marginBottom: '30px',
+                marginBottom: '28px',
                 maxWidth: '360px',
                 animationDelay: '0.36s',
               }}
@@ -233,14 +388,14 @@ export default function LithosHero() {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '14px',
+                  gap: '12px',
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: 'clamp(10px, 0.82vw, 13px)',
+                  fontSize: 'clamp(12px, 0.82vw, 13px)',
                   fontWeight: 500,
-                  letterSpacing: '0.18em',
+                  letterSpacing: '0.16em',
                   textTransform: 'uppercase',
                   textDecoration: 'none',
-                  padding: '14px 28px',
+                  padding: 'clamp(12px, 1.5vw, 14px) clamp(20px, 2.5vw, 28px)',
                   background: 'transparent',
                   color: '#F5F0E8',
                   border: '1px solid rgba(245,240,232,0.45)',
@@ -276,10 +431,10 @@ export default function LithosHero() {
             { num: '2',   label: 'Studio Offices',     sub: 'Vrindavan · Noida' },
             { num: '100%',label: 'Client Satisfaction', sub: 'Every Engagement' },
           ].map((s, i) => (
-            <div key={i} style={{ flex: 1, textAlign: 'center', padding: '16px 6px', borderRight: i < 3 ? '1px solid rgba(200,169,110,0.12)' : 'none' }}>
-              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(22px, 5vw, 36px)', fontWeight: 300, color: '#C8A96E', lineHeight: 1 }}>{s.num}</div>
-              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(7px, 1.8vw, 10px)', letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.60)', marginTop: '4px' }}>{s.label}</div>
-              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(7px, 1.6vw, 9px)', letterSpacing: '0.10em', color: 'rgba(200,169,110,0.50)', marginTop: '2px' }}>{s.sub}</div>
+            <div key={i} style={{ flex: 1, textAlign: 'center', padding: '14px 4px', borderRight: i < 3 ? '1px solid rgba(200,169,110,0.12)' : 'none' }}>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(18px, 4.5vw, 36px)', fontWeight: 300, color: '#C8A96E', lineHeight: 1 }}>{s.num}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(7px, 1.7vw, 10px)', letterSpacing: '0.16em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.60)', marginTop: '3px' }}>{s.label}</div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(6px, 1.5vw, 9px)', letterSpacing: '0.08em', color: 'rgba(200,169,110,0.50)', marginTop: '2px' }}>{s.sub}</div>
             </div>
           ))}
         </div>

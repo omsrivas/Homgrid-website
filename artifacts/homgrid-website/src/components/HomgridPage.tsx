@@ -174,10 +174,10 @@ function AIFeatureSection() {
   return (
     <section
       className="relative overflow-hidden"
-      style={{ background: G.bg, padding: '120px 0' }}
+      style={{ background: G.bg, padding: 'clamp(56px, 9vw, 120px) 0' }}
     >
       <WineGlow position="center" intensity={0.8} />
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
         <Reveal>
           <div
             className="relative overflow-hidden"
@@ -446,14 +446,15 @@ function MarqueeStrip() {
 function AboutSection() {
   return (
     <section
+      id="about"
       className="relative overflow-hidden paper-grid"
-      style={{ background: G.bg, padding: '160px 0' }}
+      style={{ background: G.bg, padding: 'clamp(64px, 10vw, 160px) 0' }}
     >
       <WineGlow position="top-right" intensity={1.2} />
       <WineGlow position="bottom-left" intensity={0.7} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
-        <div className="grid lg:grid-cols-2 gap-24 items-start">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-start">
           {/* Left — Philosophy */}
           <Reveal variant={slideLeft}>
             <SectionLabel>Our Philosophy</SectionLabel>
@@ -742,13 +743,14 @@ const services = [
 
 function ServicesSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: G.sec, padding: '160px 0' }}>
+    <section id="services"
+      className="relative overflow-hidden" style={{ background: G.sec, padding: 'clamp(64px, 10vw, 160px) 0' }}>
       <WineGlow position="top-left" intensity={1.0} />
       <WineGlow position="bottom-right" intensity={0.8} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
         {/* Header */}
-        <Reveal className="mb-24">
+        <Reveal className="mb-10 lg:mb-24">
           <SectionLabel>Our Disciplines</SectionLabel>
           <div className="flex flex-col lg:flex-row lg:items-end gap-8 lg:gap-28">
             <h2
@@ -810,7 +812,7 @@ function ServicesSection() {
                 background: 'rgba(255,252,248,0.94)',
                 border: `1px solid rgba(154,116,64,0.20)`,
                 borderRadius: '16px',
-                padding: '44px 40px 40px',
+                padding: 'clamp(24px,5vw,44px) clamp(20px,4vw,40px) clamp(20px,4vw,40px)',
                 boxShadow: '0 1px 4px rgba(10,8,4,0.07), 0 4px 16px rgba(10,8,4,0.05)',
               }}
             >
@@ -963,11 +965,11 @@ const projects = [
 
 function ProjectsSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: G.bg, padding: '160px 0' }}>
+    <section id="projects" className="relative overflow-hidden" style={{ background: G.bg, padding: 'clamp(64px, 10vw, 160px) 0' }}>
       <WineGlow position="top-right" intensity={0.9} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
-        <Reveal className="mb-24">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
+        <Reveal className="mb-10 lg:mb-24">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div>
               <SectionLabel>Selected Works</SectionLabel>
@@ -1012,7 +1014,7 @@ function ProjectsSection() {
           {projects.map((proj, i) => (
             <Reveal key={proj.num} delay={i * 0.08}>
               <motion.div
-                className="group relative overflow-hidden flex flex-row"
+                className="group relative overflow-hidden flex flex-col sm:flex-row"
                 style={{
                   border: `1px solid ${G.glassBorder}`,
                   borderRadius: '16px',
@@ -1024,7 +1026,7 @@ function ProjectsSection() {
               >
                 {/* Image — fixed width column on all screen sizes */}
                 <div
-                  className="relative shrink-0 overflow-hidden"
+                  className="relative shrink-0 overflow-hidden hg-project-image"
                   style={{
                     width: 'clamp(120px, 38%, 400px)',
                     background: proj.gradient,
@@ -1149,11 +1151,11 @@ const steps = [
 
 function ProcessSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: G.sec, padding: '160px 0' }}>
+    <section id="process" className="relative overflow-hidden" style={{ background: G.sec, padding: 'clamp(64px, 10vw, 160px) 0' }}>
       <WineGlow position="center" intensity={0.6} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
-        <Reveal className="mb-24">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
+        <Reveal className="mb-10 lg:mb-24">
           <SectionLabel>Our Method</SectionLabel>
           <div className="flex flex-col lg:flex-row gap-10 lg:items-end">
             <h2
@@ -1188,7 +1190,7 @@ function ProcessSection() {
           {steps.map((step, i) => (
             <Reveal key={step.num} delay={i * 0.07}>
               <motion.div
-                className="group flex gap-8 lg:gap-14 p-8 lg:p-10 relative overflow-hidden"
+                className="group flex gap-5 sm:gap-8 lg:gap-14 p-5 sm:p-8 lg:p-10 relative overflow-hidden"
                 style={{ borderRadius: '16px', border: '1px solid transparent' }}
                 whileHover={{
                   backgroundColor: G.bg,
@@ -1205,7 +1207,7 @@ function ProcessSection() {
                 {/* Step number */}
                 <div className="relative flex-shrink-0">
                   <div
-                    className="w-20 h-20 lg:w-24 lg:h-24 flex items-center justify-center"
+                    className="w-14 h-14 sm:w-20 sm:h-20 lg:w-24 lg:h-24 flex items-center justify-center"
                     style={{
                       background: G.glassWine,
                       border: `1px solid ${G.wineBorder}`,
@@ -1306,12 +1308,12 @@ const testimonials = [
 
 function TestimonialsSection() {
   return (
-    <section className="relative overflow-hidden" style={{ background: G.bg, padding: '160px 0' }}>
+    <section className="relative overflow-hidden" style={{ background: G.bg, padding: 'clamp(64px, 10vw, 160px) 0' }}>
       <WineGlow position="bottom-left" intensity={1.1} />
       <WineGlow position="top-right" intensity={0.6} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
-        <Reveal className="text-center mb-24">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
+        <Reveal className="text-center mb-10 lg:mb-24">
           <SectionLabel>Client Voices</SectionLabel>
           <h2
             style={{
@@ -1432,7 +1434,7 @@ function CtaStrip() {
   return (
     <Reveal>
       <div
-        className="relative overflow-hidden py-28 px-8 lg:px-20 text-center"
+        className="relative overflow-hidden py-16 md:py-28 px-6 lg:px-20 text-center"
         style={{
           background: `linear-gradient(135deg, ${G.burgundy} 0%, ${G.wine} 50%, ${G.burgundy} 100%)`,
           borderTop: `1px solid ${G.wineBorder}`,
@@ -1509,12 +1511,12 @@ function CtaStrip() {
 // ═══════════════════════════════════════════════════════════════════════════════
 function ContactSection() {
   return (
-    <section id="contact" className="relative overflow-hidden" style={{ background: G.bg, padding: '160px 0' }}>
+    <section id="contact" className="relative overflow-hidden" style={{ background: G.bg, padding: 'clamp(64px, 10vw, 160px) 0' }}>
       <WineGlow position="top-left" intensity={1.0} />
       <WineGlow position="bottom-right" intensity={0.8} />
 
-      <div className="max-w-screen-xl mx-auto px-8 lg:px-20">
-        <Reveal className="mb-24">
+      <div className="max-w-screen-xl mx-auto px-5 sm:px-8 lg:px-20">
+        <Reveal className="mb-10 lg:mb-24">
           <SectionLabel>Find Us</SectionLabel>
           <div className="flex flex-col lg:flex-row gap-10 lg:items-end justify-between">
             <h2
@@ -1553,7 +1555,7 @@ function ContactSection() {
               href="https://www.google.com/maps/place/Homgrid+Architects/@27.5610187,77.6810692,515m/data=!3m2!1e3!4b1!4m6!3m5!1s0x397371cb02ea2147:0x709c26692cc18e9f!8m2!3d27.5610187!4d77.6810692!16s%2Fg%2F11w_zdmcjk"
               target="_blank"
               rel="noopener noreferrer"
-              className="block p-10 lg:p-12 relative overflow-hidden group"
+              className="block p-6 sm:p-10 lg:p-12 relative overflow-hidden group"
               style={{
                 background: G.glass,
                 border: `1px solid ${G.glassBorder}`,
@@ -1603,7 +1605,7 @@ function ContactSection() {
               href="https://www.google.com/maps/place/Homgrid+Architects/@27.5610187,77.6810692"
               target="_blank"
               rel="noopener noreferrer"
-              className="block p-10 lg:p-12 relative overflow-hidden group"
+              className="block p-6 sm:p-10 lg:p-12 relative overflow-hidden group"
               style={{
                 background: G.glass,
                 border: `1px solid ${G.glassBorder}`,
@@ -1665,12 +1667,11 @@ function ContactSection() {
                 href={c.href}
                 target={c.href.startsWith('http') ? '_blank' : undefined}
                 rel="noopener noreferrer"
-                className="relative flex flex-col gap-4 p-8 lg:p-10 group overflow-hidden"
+                className="relative flex flex-col gap-4 p-6 sm:p-8 lg:p-10 group overflow-hidden hg-contact-channel"
                 style={{
                   background: 'rgba(255,252,248,0.55)',
                   textDecoration: 'none',
-                  borderRight: i < 2 ? `1px solid ${G.glassBorder}` : 'none',
-                }}
+                  }}
                 whileHover={{ backgroundColor: 'rgba(255,252,248,0.85)' }}
                 transition={{ duration: 0.25 }}
               >
@@ -1718,7 +1719,7 @@ function Footer() {
       <WineGlow position="bottom-left" intensity={0.6} />
 
       <div className="max-w-screen-xl mx-auto px-8 lg:px-20 py-24">
-        <div className="grid lg:grid-cols-4 gap-16 mb-20">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16 mb-16">
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-7">
